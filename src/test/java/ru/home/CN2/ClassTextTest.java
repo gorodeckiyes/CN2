@@ -14,8 +14,8 @@ public class ClassTextTest {
 	}
 	
 	@Test
-	public void Trim(){
-		CelssText celssText = new CelssText();
+	public void trimTest(){
+		CelssText celssText = new CelssText(" piter ");
 		celssText.trim();
 		assertTrue("piter".equals(celssText.getText()));
 	}
