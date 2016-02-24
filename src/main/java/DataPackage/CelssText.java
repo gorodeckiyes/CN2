@@ -16,6 +16,11 @@ public class CelssText {
 		textCels.append(text);
 	}
 	
+	public void setText(String text){
+		this.delete();
+		this.addText(text);
+	}
+	
 	public String getText(){
 		return textCels.toString();
 	}
