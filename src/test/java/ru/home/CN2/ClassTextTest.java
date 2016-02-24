@@ -33,7 +33,7 @@ public class ClassTextTest {
 	}
 	
 	@Test
-	public void setTextTest(){
+	public void addTextTest(){
 		CelssText celss = new CelssText();
 		celss.addText("pitcher");
 		assertTrue("pitcher".equals(celss.getText()));
