@@ -63,6 +63,7 @@ public class CelssText {
 		while (text.indexOf(regex) > -1){
 			text = text.replaceAll(regex, replaceText);
 		}
+		this.setText(text);
 	}
 	
 	@Override
