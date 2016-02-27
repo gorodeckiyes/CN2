@@ -2,6 +2,7 @@ package ru.home.CN2;
 
 import static org.junit.Assert.*;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
 import DataPackage.CelssText;
@@ -37,6 +38,14 @@ public class ClassTextTest {
 		CelssText celss = new CelssText();
 		celss.addText("pitcher");
 		assertTrue("pitcher".equals(celss.getText()));
+	}
+	
+	@Test
+	public void ReplaceTextTest(){
+		CelssText celss = new CelssText("hello     im      name        hiro");
+		celss.replaceText("  ", " ");
+		System.out.println(celss.toString());
+		assertTrue("hello im name hiro".equals(celss.toString()));
 	}
 
 }
