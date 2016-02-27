@@ -41,7 +41,7 @@ public class ClassTextTest {
 	}
 	
 	@Test
-	public void ReplaceTextTest(){
+	public void replaceTextTest(){
 		CelssText celss = new CelssText("hello     im      name        hiro");
 		celss.replaceText("  ", " ");
 		System.out.println(celss.toString());
