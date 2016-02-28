@@ -27,7 +27,7 @@ public class UserInterface extends JFrame {
 		fileName = fd.getDirectory()+File.separator+fd.getFile();
 	}
 	
-	public String getNameFile(){
+	public String getFileName(){
 		return fileName;
 	}
 }
