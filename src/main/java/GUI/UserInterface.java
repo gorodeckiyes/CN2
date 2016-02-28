@@ -17,10 +17,10 @@ public class UserInterface extends JFrame {
 		this.setSize(50,50);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		this.getFileName();
+		this.showFileDialog();
 	}
 	
-	private void getFileName(){
+	private void showFileDialog(){
 		FileDialog fd = new FileDialog(this, "Select file", FileDialog.LOAD);
 		fd.setFile("*.docx");
 		fd.setVisible(true);
