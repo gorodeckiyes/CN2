@@ -20,6 +20,9 @@ public class UserInterface extends JFrame {
 		this.showFileDialog();
 	}
 	
+	/**
+	 * Create and show FileDialog
+	 */
 	private void showFileDialog(){
 		FileDialog fd = new FileDialog(this, "Select file", FileDialog.LOAD);
 		fd.setFile("*.docx");
@@ -27,6 +30,10 @@ public class UserInterface extends JFrame {
 		fileName = fd.getDirectory()+File.separator+fd.getFile();
 	}
 	
+	/**
+	 * Get File Name
+	 * @return String
+	 */
 	public String getFileName(){
 		return fileName;
 	}
