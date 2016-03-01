@@ -7,13 +7,16 @@ import javax.swing.SwingUtilities;
 import GUI.UserInterface;
 
 public class Start {
-	UserInterface ui = null;
+	private UserInterface ui = null;
 	
 	/**
 	 * Initialize class ui
 	 */
 	public void init(){
-		
+		this.showFileDialog();
+	}
+	
+	private void showFileDialog(){
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
 				
