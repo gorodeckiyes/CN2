@@ -23,6 +23,7 @@ public class Start {
 				@Override
 				public void run() {
 					ui = new UserInterface();
+					ui.init();
 				}
 			});
 		} catch (InvocationTargetException | InterruptedException e) {
