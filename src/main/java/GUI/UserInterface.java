@@ -27,7 +27,8 @@ public class UserInterface extends JFrame {
 		FileDialog fd = new FileDialog(this, "Select file", FileDialog.LOAD);
 		fd.setFile("*.docx");
 		fd.setVisible(true);
-		fileName = fd.getDirectory()+File.separator+fd.getFile();
+		if(!fd.getFile().isEmpty())
+			fileName = fd.getDirectory()+File.separator+fd.getFile();
 	}
 	
 	/**
