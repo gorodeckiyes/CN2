@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.SwingUtilities;
 
 import GUI.UserInterface;
+import Thread.thredStart;
 
 public class Start {
 	private UserInterface ui = null;
@@ -14,6 +15,8 @@ public class Start {
 	 */
 	public void init(){
 		this.showFileDialog();
+		Thread tStart = new Thread(new thredStart());
+		tStart.start();
 	}
 	
 	private void showFileDialog(){
