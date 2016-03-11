@@ -38,11 +38,10 @@ public class XMLSave {
 		Element colCount = doc.createElement("colCount");
 		colCount.appendChild(doc.createTextNode(countCountN));
 		options.appendChild(colCount);
-		
 		for(int i = 0; i <= Integer.parseInt(countCountN); i++){
-			options.appendChild(
-					doc.createElement("cells"+Integer.toString(i)).appendChild(
-							doc.createTextNode(Integer.toString(i)))); 
+			Element cell =	doc.createElement("cells"+Integer.toString(i));
+			cell.appendChild(doc.createTextNode(Integer.toString(i)));
+			options.appendChild(cell);
 		}
 		TransformerFactory transformerFectory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFectory.newTransformer();
