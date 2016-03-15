@@ -12,7 +12,7 @@ public class TestXMLSave {
 
 	@Test
 	public void testSave() {
-		String FILENAME = "./testOptions.xml";
+		String FILENAME = "./options.xml";
 		try{
 			XMLSave xmls = new XMLSave(FILENAME);
 			xmls.save();
