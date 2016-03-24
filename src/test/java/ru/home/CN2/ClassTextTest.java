@@ -2,7 +2,6 @@ package ru.home.CN2;
 
 import static org.junit.Assert.*;
 
-import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
 import DataPackage.CelssText;
