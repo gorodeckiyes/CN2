@@ -35,13 +35,20 @@ public class XMLSave {
 		Element options = doc.createElement("options");
 		doc.appendChild(options);
 
-		Element colCount = doc.createElement("colCount");
+		Element colCount = doc.createElement("readerCountCells");
 		colCount.appendChild(doc.createTextNode(countCountN));
 		options.appendChild(colCount);
+		Element readerCells = doc.createElement("readerCells");		
+		options.appendChild(readerCells);
+		Element createReport = doc.createElement("createReport");
+		createReport.appendChild(doc.createTextNode("true"));
+		options.appendChild(createReport);
 		for (int i = 0; i <= Integer.parseInt(countCountN); i++) {
-			Element cell = doc.createElement("cells" + Integer.toString(i));
-			cell.appendChild(doc.createTextNode(Integer.toString(i)));
-			options.appendChild(cell);
+			if(i != 3){
+				Element cell = doc.createElement("cells" + Integer.toString(i));
+				cell.appendChild(doc.createTextNode(Integer.toString(i)));
+				readerCells.appendChild(cell);
+			}
 		}
 		TransformerFactory transformerFectory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFectory.newTransformer();
