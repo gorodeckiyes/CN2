@@ -43,7 +43,7 @@ public class XMLSave {
 		Element createReport = doc.createElement("createReport");
 		createReport.appendChild(doc.createTextNode("true"));
 		options.appendChild(createReport);
-		for (int i = 0; i <= Integer.parseInt(countCountN); i++) {
+		for (int i = 0; i < Integer.parseInt(countCountN); i++) {
 			if(i != 3){
 				Element cell = doc.createElement("cells" + Integer.toString(i));
 				cell.appendChild(doc.createTextNode(Integer.toString(i)));
