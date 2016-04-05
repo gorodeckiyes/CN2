@@ -13,24 +13,36 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XMLRead {
-	String name;
-	ArrayList<String> cells = new ArrayList<>();
+	private String name;
+	private ArrayList<String> cells = new ArrayList<>();
+	private boolean createRaport = false;
+	private DocumentBuilderFactory documentBuilderFactory = null;
+	private DocumentBuilder documentBuilder = null;
+	private Document doc = null;
 	
 	public XMLRead(String name) {
 		this.name = name;
 	}
 	
-	public ArrayList<String> Read() throws SAXException, IOException, ParserConfigurationException{
-		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-		Document doc = documentBuilder.parse(name);
-		Node optins = doc.getElementsByTagName("options").item(0);
-		NodeList loptins = optins.getChildNodes();
-		for(int i = 0; i < loptins.getLength(); i++){
-			Node node = loptins.item(i);
-			cells.add(node.getChildNodes().item(0).getNodeValue());
-		}
+	public void initialize() throws SAXException, IOException, ParserConfigurationException{
+		documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		doc = documentBuilder.parse(name);
+	}
+	
+	public ArrayList<String> Read(){
+		if(cells.size() == 0){
+			Node optins = doc.getElementsByTagName("readerCells").item(0);
+			NodeList loptins = optins.getChildNodes();
+			for(int i = 0; i < loptins.getLength(); i++){
+				Node node = loptins.item(i);
+				cells.add(node.getChildNodes().item(0).getNodeValue());
+			}
 		return new ArrayList<>(cells);
+		}
+		else{
+			return new ArrayList<>(cells);
+		}
 	}
 	
 }
