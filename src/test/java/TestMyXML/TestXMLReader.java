@@ -24,9 +24,8 @@ public class TestXMLReader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		optins = reader.Read();
+		optins = reader.getReadCells();
 		int sizeOptins = optins.size();
-		optins.forEach(e -> {System.out.println(e);});
 		assertEquals(sizeOptins, 4);
 		
 	}
