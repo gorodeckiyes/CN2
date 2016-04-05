@@ -30,7 +30,7 @@ public class XMLRead {
 		doc = documentBuilder.parse(name);
 	}
 	
-	public ArrayList<String> Read(){
+	public ArrayList<String> getReadCells(){
 		if(cells.size() == 0){
 			Node optins = doc.getElementsByTagName("readerCells").item(0);
 			NodeList loptins = optins.getChildNodes();
