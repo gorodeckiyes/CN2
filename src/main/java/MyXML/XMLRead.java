@@ -30,19 +30,26 @@ public class XMLRead {
 		doc = documentBuilder.parse(name);
 	}
 	
-	public ArrayList<String> getReadCells(){
-		if(cells.size() == 0){
-			Node optins = doc.getElementsByTagName("readerCells").item(0);
-			NodeList loptins = optins.getChildNodes();
-			for(int i = 0; i < loptins.getLength(); i++){
-				Node node = loptins.item(i);
-				cells.add(node.getChildNodes().item(0).getNodeValue());
-			}
-		return new ArrayList<>(cells);
-		}
-		else{
+	public ArrayList<String> getReadCells() throws Exception{
+		if(doc != null){
+			if(cells.size() == 0){
+				Node optins = doc.getElementsByTagName("readerCells").item(0);
+				NodeList loptins = optins.getChildNodes();
+				for(int i = 0; i < loptins.getLength(); i++){
+					Node node = loptins.item(i);
+					cells.add(node.getChildNodes().item(0).getNodeValue());
+				}
 			return new ArrayList<>(cells);
+			} else {
+				return new ArrayList<>(cells);
+			}
+		} else {
+			throw new Exception("not initialize");
 		}
+	}
+	
+	public void getCreateReport(){
+		
 	}
 	
 }
