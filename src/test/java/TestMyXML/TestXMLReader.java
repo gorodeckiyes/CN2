@@ -24,9 +24,24 @@ public class TestXMLReader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		optins = reader.getReadCells();
+		try{
+			optins = reader.getReadCells();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		int sizeOptins = optins.size();
 		assertEquals(sizeOptins, 4);
 		
+	}
+	
+	@Test
+	public void testGetCreateReport(){
+		XMLRead reader = new XMLRead("./options.xml");
+		try{
+			reader.initialize();
+			assertTrue(reader.getCreateReport());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }
