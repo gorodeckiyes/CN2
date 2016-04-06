@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -48,8 +49,16 @@ public class XMLRead {
 		}
 	}
 	
-	public void getCreateReport(){
-		
+	public boolean getCreateReport() throws Exception{
+		if(doc != null && createRaport == false){
+			Node elementCreateRaport = doc.getElementsByTagName("createReport").item(0).getChildNodes().item(0);
+			if("true".equals(elementCreateRaport.getNodeValue())){
+				createRaport = true;
+			}
+		} else {
+			throw new Exception("Not iitialize");
+		}
+		return createRaport;
 	}
 	
 }
