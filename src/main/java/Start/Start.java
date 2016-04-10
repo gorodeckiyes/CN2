@@ -1,6 +1,7 @@
 package Start;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
@@ -9,6 +10,13 @@ import Thread.thredStart;
 
 public class Start {
 	private UserInterface ui = null;
+	private ArrayList<String> readCells = null;
+	private boolean createReport = false;
+	
+	public Start(boolean createReport, ArrayList<String> readerCells) {
+		this.createReport = createReport;
+		this.readCells = readerCells;
+	}
 	
 	/**
 	 * Initialize class ui
