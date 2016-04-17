@@ -23,7 +23,8 @@ public class Start {
 	 */
 	public void init(){
 		this.showFileDialog();
-		Thread tStart = new Thread(new thredStart(createReport,new ArrayList<>(readCells)));
+		Thread tStart = new Thread(new thredStart(ui.getFileName(), createReport,
+				new ArrayList<>(readCells)));
 		tStart.start();
 	}
 	
