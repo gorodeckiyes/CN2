@@ -25,6 +25,7 @@ public class Start {
 		this.showFileDialog();
 		Thread tStart = new Thread(new thredStart(ui.getFileName(), createReport,
 				new ArrayList<>(readCells)));
+		tStart.setDaemon(true);
 		tStart.start();
 	}
 	
