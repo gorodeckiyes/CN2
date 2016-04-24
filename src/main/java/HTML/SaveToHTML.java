@@ -138,4 +138,8 @@ public class SaveToHTML {
 			}
 		}
 	}
+	
+	public void addBR(){
+		htmlBody.add("<br />");
+	}
 }
