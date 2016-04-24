@@ -138,7 +138,9 @@ public class SaveToHTML {
 			}
 		}
 	}
-	
+	/**
+	 * add br
+	 */
 	public void addBR(){
 		htmlBody.add("<br />");
 	}
