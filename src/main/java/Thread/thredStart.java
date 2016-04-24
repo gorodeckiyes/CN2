@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
 
 import DataPackage.WordDocument;
 import HTML.SaveToHTML;
@@ -17,6 +19,7 @@ public class thredStart implements Runnable {
 	private WordDocument cnDoc;
 	private WordDocument cnNewDoc;
 	private SaveToHTML html;
+	private int tableIndex;
 	
 	public thredStart(String fileName, boolean createReport, ArrayList<String> readerCells) {
 		this.createReport = createReport;
@@ -27,7 +30,12 @@ public class thredStart implements Runnable {
 	@Override
 	public void run() {
 		this.Init();
-		
+		tableIndex = 0;
+		Iterator<XWPFTable> tableIterator = cnDoc.getTablesIterator();
+		while(tableIterator.hasNext()){
+			XWPFTable docTable = tableIterator.next();
+			this.readerCellsDocument(docTable);
+		}
 	}
 	
 	/**
@@ -36,6 +44,8 @@ public class thredStart implements Runnable {
 	private void Init(){
 		html = new SaveToHTML(fileName.getPath()+File.separator+"Report_"+fileName.getName()+".html");
 		html.init();
+		this.htmlHat();
+		cnNewDoc = new WordDocument();
 		try{
 			cnDoc = (WordDocument) new XWPFDocument(new FileInputStream(fileName));
 		}catch(IOException e){
@@ -51,7 +61,26 @@ public class thredStart implements Runnable {
 		cnNewDoc = (WordDocument) new XWPFDocument();
 	}
 
-	private void readerCellsDocument(){
+	private void readerCellsDocument(XWPFTable doctable){
 		
+	}
+	
+	private void htmlHat(){
+		html.addDiv("Таблица цветов ячеек");
+		html.newTable("border=\"1\" width=\"100%\" bordercolor=\"black\"");
+		
+		html.newRow();
+		html.newCell("Такие ячейки будут добавлены","bgcolor = #F9F2E3");
+		html.endRow();
+		
+		html.newRow();
+		html.newCell("Ячейки с таким цветом не будут добавлены", "bgcolor = red");
+		html.endRow();
+		
+		html.newRow();
+		html.newCell("Ячейки с таким цветом для информации, отсутствуют в документе", "bgcolor=silver");
+		html.endRow();
+		html.endTable();
+		html.addBR();
 	}
 }
