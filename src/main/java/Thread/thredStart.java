@@ -19,7 +19,6 @@ public class thredStart implements Runnable {
 	private WordDocument cnDoc;
 	private WordDocument cnNewDoc;
 	private SaveToHTML html;
-	private int tableIndex;
 	
 	public thredStart(String fileName, boolean createReport, ArrayList<String> readerCells) {
 		this.createReport = createReport;
@@ -30,13 +29,15 @@ public class thredStart implements Runnable {
 	@Override
 	public void run() {
 		this.Init();
-		tableIndex = 1;
-		Iterator<XWPFTable> tableIterator = cnDoc.getTablesIterator();
-		while(tableIterator.hasNext()){
-			XWPFTable docTable = tableIterator.next();
-			html.addDiv("Table №"+Integer.toString(tableIndex));
-			this.readerCellsDocument(docTable);
-			tableIndex++;
+		if(cnDoc.getTables().size() > 0){
+			int tableIndex = 1;
+			Iterator<XWPFTable> tableIterator = cnDoc.getTablesIterator();
+			while(tableIterator.hasNext()){
+				XWPFTable docTable = tableIterator.next();
+				html.addDiv("Table №"+Integer.toString(tableIndex));
+				this.readerCellsDocument(docTable);
+				tableIndex++;
+			}
 		}
 	}
 	
