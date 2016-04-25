@@ -30,11 +30,13 @@ public class thredStart implements Runnable {
 	@Override
 	public void run() {
 		this.Init();
-		tableIndex = 0;
+		tableIndex = 1;
 		Iterator<XWPFTable> tableIterator = cnDoc.getTablesIterator();
 		while(tableIterator.hasNext()){
 			XWPFTable docTable = tableIterator.next();
+			html.addDiv("Table №"+Integer.toString(tableIndex));
 			this.readerCellsDocument(docTable);
+			tableIndex++;
 		}
 	}
 	
@@ -61,7 +63,7 @@ public class thredStart implements Runnable {
 		cnNewDoc = (WordDocument) new XWPFDocument();
 	}
 
-	private void readerCellsDocument(XWPFTable doctable){
+	private void readerCellsDocument(XWPFTable docTable){
 		
 	}
 	
