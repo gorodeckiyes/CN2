@@ -20,6 +20,7 @@ public class thredStart implements Runnable {
 	private WordDocument cnDoc;
 	private WordDocument cnNewDoc;
 	private SaveToHTML html;
+	private int numberRowTable;
 	
 	public thredStart(String fileName, boolean createReport, ArrayList<String> readerCells) {
 		this.createReport = createReport;
@@ -35,8 +36,9 @@ public class thredStart implements Runnable {
 			Iterator<XWPFTable> tableIterator = cnDoc.getTablesIterator();
 			while(tableIterator.hasNext()){
 				XWPFTable docTable = tableIterator.next();
-				html.addDiv("Table №"+Integer.toString(tableIndex));
-				this.readerRowsDocument(docTable);
+				XWPFTable newTable = cnNewDoc.createTable();
+				html.addDiv("Table #"+Integer.toString(tableIndex));
+				this.readerRowsTable(docTable, newTable);
 				html.endTable();
 				tableIndex++;
 			}
@@ -72,14 +74,23 @@ public class thredStart implements Runnable {
 		cnNewDoc = (WordDocument) new XWPFDocument();
 	}
 
-	private void readerRowsTable(XWPFTable docTable){
-		int numberRowTable = 1;
+	private void readerRowsTable(XWPFTable docTable, XWPFTable newTable){
+		numberRowTable = 1;
 			docTable.getRows().forEach(row ->{
-				
+				if(createReport)
+					html.newRow();
+					XWPFTableRow newTableRow = newTable.createRow();
+					this.readerCellsTable(numberRowTable, row, newTableRow);
+					newTable.addRow(newTableRow);
+				if(createReport)
+					html.endRow();
 			});
 	}
 	
-	
+	private void readerCellsTable(int rowNumber, XWPFTableRow row, XWPFTableRow newRow){
+		/*if(createReport)
+			html.newCell(Integer.toString(rowNumber), "bgcolor=silver width=10px");*/
+	}
 	
 	private void htmlHat(){
 		html.addDiv("Таблица цветов ячеек");
