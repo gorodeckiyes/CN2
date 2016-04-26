@@ -36,8 +36,15 @@ public class thredStart implements Runnable {
 				XWPFTable docTable = tableIterator.next();
 				html.addDiv("Table №"+Integer.toString(tableIndex));
 				this.readerCellsDocument(docTable);
+				html.endTable();
 				tableIndex++;
 			}
+		}
+		html.endFile();
+		try {
+			html.saveToFile();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
