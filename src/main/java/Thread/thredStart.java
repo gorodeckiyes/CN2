@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import DataPackage.WordDocument;
 import HTML.SaveToHTML;
@@ -35,7 +36,7 @@ public class thredStart implements Runnable {
 			while(tableIterator.hasNext()){
 				XWPFTable docTable = tableIterator.next();
 				html.addDiv("Table №"+Integer.toString(tableIndex));
-				this.readerCellsDocument(docTable);
+				this.readerRowsDocument(docTable);
 				html.endTable();
 				tableIndex++;
 			}
@@ -71,9 +72,14 @@ public class thredStart implements Runnable {
 		cnNewDoc = (WordDocument) new XWPFDocument();
 	}
 
-	private void readerRowsDocument(XWPFTable docTable){
-		
+	private void readerRowsTable(XWPFTable docTable){
+		int numberRowTable = 1;
+			docTable.getRows().forEach(row ->{
+				
+			});
 	}
+	
+	
 	
 	private void htmlHat(){
 		html.addDiv("Таблица цветов ячеек");
