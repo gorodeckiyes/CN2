@@ -71,7 +71,7 @@ public class thredStart implements Runnable {
 		cnNewDoc = (WordDocument) new XWPFDocument();
 	}
 
-	private void readerCellsDocument(XWPFTable docTable){
+	private void readerRowsDocument(XWPFTable docTable){
 		
 	}
 	
