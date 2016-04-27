@@ -19,7 +19,16 @@ public class XMLRead {
 	private DocumentBuilderFactory documentBuilderFactory = null;
 	private DocumentBuilder documentBuilder = null;
 	private Document doc = null;
+	private int readerCountCells = 0;
 	
+	public int getReaderCountCells() {
+		if(readerCountCells == 0){
+			Node elementReaderCountCells = doc.getElementsByTagName("createReport").item(0).getChildNodes().item(0);
+			readerCountCells = Integer.parseInt(elementReaderCountCells.getNodeValue());
+		}
+		return readerCountCells;
+	}
+
 	public XMLRead(String name) {
 		this.name = name;
 	}
