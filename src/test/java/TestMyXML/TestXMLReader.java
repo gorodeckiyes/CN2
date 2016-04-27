@@ -44,4 +44,15 @@ public class TestXMLReader {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testGetReaderCountCells(){
+		XMLRead reader = new XMLRead("./options.xml");
+		try{
+			reader.initialize();
+			assertTrue((reader.getReaderCountCells() == 5));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }
