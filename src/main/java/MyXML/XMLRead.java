@@ -23,7 +23,7 @@ public class XMLRead {
 	
 	public int getReaderCountCells() {
 		if(readerCountCells == 0){
-			Node elementReaderCountCells = doc.getElementsByTagName("createReport").item(0).getChildNodes().item(0);
+			Node elementReaderCountCells = doc.getElementsByTagName("readerCountCells").item(0).getChildNodes().item(0);
 			readerCountCells = Integer.parseInt(elementReaderCountCells.getNodeValue());
 		}
 		return readerCountCells;
