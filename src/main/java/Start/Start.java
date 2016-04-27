@@ -12,10 +12,12 @@ public class Start {
 	private UserInterface ui = null;
 	private ArrayList<String> readCells = null;
 	private boolean createReport = false;
+	private int readerCountCells;
 	
-	public Start(boolean createReport, ArrayList<String> readerCells) {
+	public Start(int readerCountCells, boolean createReport, ArrayList<String> readerCells) {
 		this.createReport = createReport;
 		this.readCells = readerCells;
+		this.readerCountCells = readerCountCells;
 	}
 	
 	/**
