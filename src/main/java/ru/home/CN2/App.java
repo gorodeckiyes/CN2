@@ -38,7 +38,7 @@ public class App
        }
        Start start = null;
        try {
-		 start = new Start(xml.getCreateReport(), xml.getReadCells());
+		 start = new Start(xml.getReaderCountCells(), xml.getCreateReport(), xml.getReadCells());
        } catch (Exception e) {
 		e.printStackTrace();
        }
