@@ -21,11 +21,13 @@ public class thredStart implements Runnable {
 	private WordDocument cnNewDoc;
 	private SaveToHTML html;
 	private int numberRowTable;
+	private int readerCountCells;
 	
-	public thredStart(String fileName, boolean createReport, ArrayList<String> readerCells) {
+	public thredStart(String fileName, boolean createReport, ArrayList<String> readerCells, int readerCountCells) {
 		this.createReport = createReport;
 		this.readerCells = readerCells;
 		this.fileName = new File(fileName);
+		this.readerCountCells = readerCountCells;
 	}
 	
 	@Override
@@ -89,7 +91,8 @@ public class thredStart implements Runnable {
 	
 	private void readerCellsTable(int rowNumber, XWPFTableRow row, XWPFTableRow newRow){
 		/*if(createReport)
-			html.newCell(Integer.toString(rowNumber), "bgcolor=silver width=10px");*/
+			html.newCell(Integer.toString(rowNumber), "bgcolor=silver width=10px");
+		for(int i = 0; i < )*/
 	}
 	
 	private void htmlHat(){
