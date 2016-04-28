@@ -1,12 +1,12 @@
 package Thread;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -20,7 +20,7 @@ public class thredStart implements Runnable {
 	private ArrayList<String> readerCells;
 	private File fileName;
 	private WordDocument cnDoc;
-	private XWPFDocument cnNewDoc;
+	private WordDocument cnNewDoc;
 	private SaveToHTML html;
 	private int numberRowTable;
 	private int readerCountCells;
@@ -52,8 +52,18 @@ public class thredStart implements Runnable {
 		html.endFile();
 		try {
 			html.saveToFile();
+			cnNewDoc.saveToFile(fileName.getParent()+File.separator+"new_"+fileName.getName());
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		if (Desktop.isDesktopSupported()) {
+			Desktop d = Desktop.getDesktop();
+			try {
+				d.open(new File(fileName.getParent()+File.separator+"new_"+fileName.getName()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		System.exit(0);
 	}
@@ -88,9 +98,10 @@ public class thredStart implements Runnable {
 				html.newRow();
 			XWPFTableRow newTableRow = newTable.createRow();
 			this.readerCellsTable(numberRowTable, row, newTableRow);
-			newTable.addRow(newTableRow);
+//			newTable.addRow(newTableRow);
 			if (createReport)
 				html.endRow();
+			numberRowTable++;
 		});
 	}
 
@@ -102,7 +113,12 @@ public class thredStart implements Runnable {
 			if (cell.getTextRecursively() != null) {
 				CelssText text = new CelssText(cell.getTextRecursively());
 				if (readerCells.indexOf(Integer.toString(readerCell)) != -1) {
-					XWPFTableCell newCell = newRow.createCell();
+					XWPFTableCell newCell;
+					if(readerCell != 0){
+						newCell = newRow.addNewTableCell();
+					} else {
+						newCell = newRow.getCell(0);
+					}
 					newCell.setText(text.toString());
 					if (createReport)
 						html.newCell(text.toString(), "bgcolor = #F9F2E3");
@@ -113,6 +129,7 @@ public class thredStart implements Runnable {
 				html.newCell("", "bgcolor = red  width=10px");
 			}
 			readerCell++;
+//			newRow.
 		});
 	}
 
