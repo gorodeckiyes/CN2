@@ -2,70 +2,76 @@ package DataPackage;
 
 public class CelssText {
 	private StringBuffer textCels;
-	
+
 	public CelssText() {
 		textCels = new StringBuffer();
 	}
-	
+
 	public CelssText(String text) {
 		this();
 		this.addText(text);
 	}
-	
+
 	/**
 	 * Add text
+	 * 
 	 * @param text
 	 */
-	public void addText(String text){
+	public void addText(String text) {
 		textCels.append(text);
 	}
-	
+
 	/**
 	 * Set text
+	 * 
 	 * @param text
 	 */
-	public void setText(String text){
+	public void setText(String text) {
 		this.delete();
 		this.addText(text);
 	}
-	
+
 	/**
 	 * Get text
+	 * 
 	 * @return
 	 */
-	public String getText(){
+	public String getText() {
 		return textCels.toString();
 	}
-	
+
 	/**
 	 * Delete text this object
 	 */
-	public void delete(){
+	public void delete() {
 		textCels.delete(0, textCels.toString().length());
 	}
-	
+
 	/**
 	 * trim text this object
 	 */
-	public void trim(){
+	public void trim() {
 		String text = textCels.toString();
 		this.delete();
 		this.addText(text.trim());
 	}
-	
+
 	/**
 	 * replace text as replacetext
-	 * @param regex - search text
-	 * @param replaceText - replace text
+	 * 
+	 * @param regex
+	 *            - search text
+	 * @param replaceText
+	 *            - replace text
 	 */
-	public void replaceText(String regex, String replaceText){
+	public void replaceText(String regex, String replaceText) {
 		String text = textCels.toString();
-		while (text.indexOf(regex) > -1){
+		while (text.indexOf(regex) > -1) {
 			text = text.replaceAll(regex, replaceText);
 		}
 		this.setText(text);
 	}
-	
+
 	@Override
 	public String toString() {
 		trim();
