@@ -13,28 +13,28 @@ public class Start {
 	private ArrayList<String> readCells = null;
 	private boolean createReport = false;
 	private int readerCountCells;
-	
+
 	public Start(int readerCountCells, boolean createReport, ArrayList<String> readerCells) {
 		this.createReport = createReport;
 		this.readCells = readerCells;
 		this.readerCountCells = readerCountCells;
 	}
-	
+
 	/**
 	 * Initialize class ui
 	 */
-	public void init(){
+	public void init() {
 		this.showFileDialog();
-		Thread tStart = new Thread(new thredStart(ui.getFileName(), createReport,
-				new ArrayList<>(readCells), readerCountCells));
+		Thread tStart = new Thread(
+				new thredStart(ui.getFileName(), createReport, new ArrayList<>(readCells), readerCountCells));
 		tStart.setDaemon(true);
 		tStart.start();
 	}
-	
-	private void showFileDialog(){
+
+	private void showFileDialog() {
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
-				
+
 				@Override
 				public void run() {
 					ui = new UserInterface();
