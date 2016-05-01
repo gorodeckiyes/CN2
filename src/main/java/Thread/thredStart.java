@@ -44,7 +44,7 @@ public class thredStart implements Runnable {
 				XWPFTable newTable = null;
 				html.addBR();
 				html.addDiv("<b>Table #" + Integer.toString(tableIndex)+"</b>");
-				html.newTable("border=\"1\" width=\"100%\" bordercolor = \"red\"");
+				html.newTable("border=\"1\" width=\"100%\"");
 				List<XWPFTableRow> docTableRows = docTable.getRows();
 				int rowIndex = 1;
 				for(XWPFTableRow row : docTableRows){
@@ -53,7 +53,7 @@ public class thredStart implements Runnable {
 					html.newCell(Integer.toString(rowIndex), "bgcolor=silver width=10px");
 					cellsStringList.clear();
 					for(XWPFTableCell cell : docTableCells){
-						cellsStringList.add(cell.getTextRecursively());
+						cellsStringList.add(new CelssText(cell.getTextRecursively()).toString());
 					}
 					if(isAddCells(cellsStringList)){
 						if(newTable == null){
@@ -63,8 +63,8 @@ public class thredStart implements Runnable {
 						int indexCell = 0;
 						for(String textCell : cellsStringList){
 							if(readerCells.indexOf(Integer.toString(indexCell)) != -1){
-							html.newCell(textCell, "bgcolor = #F9F2E3");
-							rowNewTable.getCell(indexCell).setText(textCell);
+								html.newCell(textCell, "bgcolor = limegreen");
+								rowNewTable.getCell(indexCell).setText(textCell);
 							} else {
 								html.newCell(textCell, "bgcolor = red");
 							}
@@ -125,9 +125,8 @@ public class thredStart implements Runnable {
 		if (Desktop.isDesktopSupported()) {
 			Desktop d = Desktop.getDesktop();
 			try {
-				d.open(new File(fileName.getParent()+File.separator+"new_"+fileName.getName()));
+				d.open(new File(html.getFileName()));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -157,54 +156,12 @@ public class thredStart implements Runnable {
 		cnNewDoc = new WordDocument();
 	}
 
-	/*private void readerRowsTable(XWPFTable docTable, XWPFTable newTable) {
-		numberRowTable = 1;
-		docTable.getRows().forEach(row -> {
-			if (createReport)
-				html.newRow();
-			XWPFTableRow newTableRow = newTable.createRow();
-			this.readerCellsTable(numberRowTable, row, newTableRow);
-//			newTable.addRow(newTableRow);
-			if (createReport)
-				html.endRow();
-			numberRowTable++;
-		});
-	}*/
-
-	/*private void readerCellsTable(int rowNumber, XWPFTableRow row, XWPFTableRow newRow) {
-		if (createReport)
-			html.newCell(Integer.toString(rowNumber), "bgcolor=silver width=10px");
-		readerCell = 0;
-		row.getTableCells().forEach(cell -> {
-			if (cell.getTextRecursively() != null) {
-				CelssText text = new CelssText(cell.getTextRecursively());
-				if (readerCells.indexOf(Integer.toString(readerCell)) != -1) {
-					XWPFTableCell newCell;
-					if(readerCell != 0){
-						newCell = newRow.addNewTableCell();
-					} else {
-						newCell = newRow.getCell(0);
-					}
-					newCell.setText(text.toString());
-					if (createReport)
-						html.newCell(text.toString(), "bgcolor = #F9F2E3");
-				} else {
-					html.newCell(text.toString(), "bgcolor = red");
-				}
-			} else {
-				html.newCell("", "bgcolor = red  width=10px");
-			}
-			readerCell++;
-//			newRow.
-		});
-	}*/
-
 	private void htmlHat() {
 		html.addDiv("Таблица цветов ячеек");
 		html.newTable("border=\"1\" width=\"100%\" bordercolor=\"black\"");
 
 		html.newRow();
-		html.newCell("Такие ячейки будут добавлены", "bgcolor = #F9F2E3");
+		html.newCell("Такие ячейки будут добавлены", "bgcolor = limegreen");
 		html.endRow();
 
 		html.newRow();
