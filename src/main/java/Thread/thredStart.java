@@ -14,6 +14,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import DataPackage.CelssText;
 import DataPackage.WordDocument;
 import HTML.SaveToHTML;
+import java.util.List;
 
 public class thredStart implements Runnable {
 	private boolean createReport;
@@ -36,19 +37,36 @@ public class thredStart implements Runnable {
 	@Override
 	public void run() {
 		this.Init();
+		List<String> cellsStringList = new ArrayList<>();
 		if (cnDoc.getTables().size() > 0) {
 			int tableIndex = 1;
 			Iterator<XWPFTable> tableIterator = cnDoc.getTablesIterator();
 			while (tableIterator.hasNext()) {
 				XWPFTable docTable = tableIterator.next();
-				XWPFTable newTable = cnNewDoc.createTable();
-				html.addDiv("Table #" + Integer.toString(tableIndex));
-				html.newTable("border=\"1\" width=\"100%\" bordercolor=\"black\"");
-				this.readerRowsTable(docTable, newTable);
-				html.endTable();
+				XWPFTable newTable = null;
+				List<XWPFTableRow> docTableRows = docTable.getRows();
+				int rowIndex = 1;
+				for(XWPFTableRow row : docTableRows){
+					List<XWPFTableCell> docTableCells = row.getTableCells();
+					for(XWPFTableCell cell : docTableCells){
+						cellsStringList.add(cell.getTextRecursively());
+					}
+					//Проверка на добавления в файл isAddCells
+					rowIndex++;
+				}
+//				html.addDiv("Table #" + Integer.toString(tableIndex));
+//				html.newTable("border=\"1\" width=\"100%\" bordercolor=\"black\"");
+//				this.readerRowsTable(docTable, newTable);
+//				html.endTable();
 				tableIndex++;
 			}
 		}
+		this.finall();
+	}
+	
+	
+
+	private void finall(){
 		html.endFile();
 		try {
 			html.saveToFile();
@@ -67,7 +85,7 @@ public class thredStart implements Runnable {
 		}
 		System.exit(0);
 	}
-
+	
 	/**
 	 * Initialize file
 	 */
@@ -91,7 +109,7 @@ public class thredStart implements Runnable {
 		cnNewDoc = new WordDocument();
 	}
 
-	private void readerRowsTable(XWPFTable docTable, XWPFTable newTable) {
+	/*private void readerRowsTable(XWPFTable docTable, XWPFTable newTable) {
 		numberRowTable = 1;
 		docTable.getRows().forEach(row -> {
 			if (createReport)
@@ -103,9 +121,9 @@ public class thredStart implements Runnable {
 				html.endRow();
 			numberRowTable++;
 		});
-	}
+	}*/
 
-	private void readerCellsTable(int rowNumber, XWPFTableRow row, XWPFTableRow newRow) {
+	/*private void readerCellsTable(int rowNumber, XWPFTableRow row, XWPFTableRow newRow) {
 		if (createReport)
 			html.newCell(Integer.toString(rowNumber), "bgcolor=silver width=10px");
 		readerCell = 0;
@@ -131,7 +149,7 @@ public class thredStart implements Runnable {
 			readerCell++;
 //			newRow.
 		});
-	}
+	}*/
 
 	private void htmlHat() {
 		html.addDiv("Таблица цветов ячеек");
