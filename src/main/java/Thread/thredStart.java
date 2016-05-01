@@ -23,9 +23,7 @@ public class thredStart implements Runnable {
 	private WordDocument cnDoc;
 	private WordDocument cnNewDoc;
 	private SaveToHTML html;
-	private int numberRowTable;
 	private int readerCountCells;
-	private int readerCell;
 
 	public thredStart(String fileName, boolean createReport, ArrayList<String> readerCells, int readerCountCells) {
 		this.createReport = createReport;
@@ -44,24 +42,54 @@ public class thredStart implements Runnable {
 			while (tableIterator.hasNext()) {
 				XWPFTable docTable = tableIterator.next();
 				XWPFTable newTable = null;
+				html.addBR();
+				html.addDiv("<b>Table #" + Integer.toString(tableIndex)+"</b>");
+				html.newTable("border=\"1\" width=\"100%\" bordercolor = \"red\"");
 				List<XWPFTableRow> docTableRows = docTable.getRows();
 				int rowIndex = 1;
 				for(XWPFTableRow row : docTableRows){
 					List<XWPFTableCell> docTableCells = row.getTableCells();
+					html.newRow();
+					html.newCell(Integer.toString(rowIndex), "bgcolor=silver width=10px");
+					cellsStringList.clear();
 					for(XWPFTableCell cell : docTableCells){
 						cellsStringList.add(cell.getTextRecursively());
 					}
-					//Проверка на добавления в файл isAddCells
+					if(isAddCells(cellsStringList)){
+						if(newTable == null){
+							newTable = cnNewDoc.createTable(1,readerCountCells);
+						}
+						XWPFTableRow rowNewTable = this.getRow(newTable, rowIndex); 
+						int indexCell = 0;
+						for(String textCell : cellsStringList){
+							if(readerCells.indexOf(Integer.toString(indexCell)) != -1){
+							html.newCell(textCell, "bgcolor = #F9F2E3");
+							rowNewTable.getCell(indexCell).setText(textCell);
+							} else {
+								html.newCell(textCell, "bgcolor = red");
+							}
+							indexCell++;
+						}
+					} else {
+						for(String text: cellsStringList)
+							html.newCell(text, "bgcolor = red");
+					}
+					html.endRow();
 					rowIndex++;
 				}
-//				html.addDiv("Table #" + Integer.toString(tableIndex));
-//				html.newTable("border=\"1\" width=\"100%\" bordercolor=\"black\"");
-//				this.readerRowsTable(docTable, newTable);
-//				html.endTable();
 				tableIndex++;
+				html.endTable();
 			}
 		}
 		this.finall();
+	}
+	
+	private XWPFTableRow getRow(XWPFTable table, int index){
+		if(index == 1){
+			return table.getRow(0);
+		} else {
+			return table.createRow();
+		}
 	}
 	
 	/**
@@ -71,16 +99,17 @@ public class thredStart implements Runnable {
 	 */
 	private boolean isAddCells(List<String> textCells){
 		boolean result = true;
-		for(int i = 0; i < readerCells.size(); i++){
-			int indexCells = Integer.parseInt(readerCells.get(i));
-			if(textCells.get(indexCells) == null)
-				result = false;
-			if(textCells.get(indexCells).length() < 3){
-				result = false;
+		if(textCells.size() >= readerCountCells){
+			for(int i = 0; i < readerCells.size(); i++){
+				int indexCells = Integer.parseInt(readerCells.get(i));
+				if(textCells.get(indexCells) == null)
+					result = false;
+				if(textCells.get(indexCells).length() < 3){
+					result = false;
+				}
 			}
-			if(textCells.size() < readerCountCells){
-				result = false;
-			}
+		}else{
+			result = false;
 		}
 		return result;
 	}
