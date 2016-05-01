@@ -64,7 +64,26 @@ public class thredStart implements Runnable {
 		this.finall();
 	}
 	
-	
+	/**
+	 * Check cell
+	 * @param textCells list cells
+	 * @return boolean
+	 */
+	private boolean isAddCells(List<String> textCells){
+		boolean result = true;
+		for(int i = 0; i < readerCells.size(); i++){
+			int indexCells = Integer.parseInt(readerCells.get(i));
+			if(textCells.get(indexCells) == null)
+				result = false;
+			if(textCells.get(indexCells).length() < 3){
+				result = false;
+			}
+			if(textCells.size() < readerCountCells){
+				result = false;
+			}
+		}
+		return result;
+	}
 
 	private void finall(){
 		html.endFile();
