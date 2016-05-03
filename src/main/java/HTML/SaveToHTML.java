@@ -11,6 +11,14 @@ public class SaveToHTML {
 	private ArrayList<String> htmlBody;
 	private String fileName;
 
+	/**
+	 * get fileName
+	 * @return String
+	 */
+	public String getFileName() {
+		return fileName;
+	}
+
 	public SaveToHTML(String fileName) {
 		this.fileName = fileName;
 	}
