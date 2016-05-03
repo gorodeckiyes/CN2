@@ -42,8 +42,8 @@ public class Start {
 				}
 			});
 		} catch (InvocationTargetException | InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 }
