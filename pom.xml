@@ -9,7 +9,7 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.5</version>
+            <version>2.3.2</version>
             <configuration>
                 <source>1.8</source>
                 <target>1.8</target>
@@ -18,13 +18,13 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
-            <version>2.6</version>
+            <version>2.3.1</version>
             <configuration>
                 <archive>
                     <manifest>
                         <addClasspath>true</addClasspath>
-                        <mainClass>Main.Start</mainClass>
-                        <packageName>Main</packageName>
+                        <mainClass>ru.home.CN2.App</mainClass>
+                        <packageName>ru.home.CN2</packageName>
                         <addClasspath>true</addClasspath>
                         <classpathPrefix>lib/</classpathPrefix>
                     </manifest>
@@ -34,7 +34,7 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>2.10</version>
+            <version>2.4</version>
             <executions>
                 <execution>
                     <id>copy-dependencies</id>
