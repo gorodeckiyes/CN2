@@ -35,7 +35,7 @@ public class thredStart implements Runnable {
 	@Override
 	public void run() {
 		this.Init();
-		List<String> cellsStringList = new ArrayList<>();
+		List<String> cellsStringList = new ArrayList<String>();
 		if (cnDoc.getTables().size() > 0) {
 			int tableIndex = 1;
 			Iterator<XWPFTable> tableIterator = cnDoc.getTablesIterator();
@@ -51,14 +51,10 @@ public class thredStart implements Runnable {
 					List<XWPFTableCell> docTableCells = row.getTableCells();
 					html.newRow();
 					html.newCell(Integer.toString(rowIndex), "bgcolor=silver width=10px");
-					cellsStringList.clear();
 					for(XWPFTableCell cell : docTableCells){
-						cellsStringList.add(new CelssText(cell.getTextRecursively()).toString());
+						cellsStringList.add(new CelssText(cell.getTextRecursively().trim()).toString());
 					}
 					if(isAddCells(cellsStringList)){
-						if(newTable == null){
-							newTable = cnNewDoc.createTable(1,readerCountCells);
-						}
 						XWPFTableRow rowNewTable = this.getRow(newTable, rowIndex); 
 						int indexCell = 0;
 						for(String textCell : cellsStringList){
@@ -76,6 +72,7 @@ public class thredStart implements Runnable {
 					}
 					html.endRow();
 					rowIndex++;
+					cellsStringList.clear();
 				}
 				tableIndex++;
 				html.endTable();
@@ -85,7 +82,8 @@ public class thredStart implements Runnable {
 	}
 	
 	private XWPFTableRow getRow(XWPFTable table, int index){
-		if(index == 1){
+		if(table == null){
+			table = cnNewDoc.createTable(1,readerCountCells);
 			return table.getRow(0);
 		} else {
 			return table.createRow();
@@ -98,19 +96,15 @@ public class thredStart implements Runnable {
 	 * @return boolean
 	 */
 	private boolean isAddCells(List<String> textCells){
-		boolean result = true;
+		boolean result = false;
 		if(textCells.size() >= readerCountCells){
 			for(int i = 0; i < readerCells.size(); i++){
 				int indexCells = Integer.parseInt(readerCells.get(i));
-				if(textCells.get(indexCells) == null)
-					result = false;
-				if(textCells.get(indexCells).length() < 3){
-					result = false;
-				}
+				if((textCells.get(indexCells) != null) && 
+					(textCells.get(indexCells).length() > 3))
+					result = true;
 			}
-		}else{
-			result = false;
-		}
+		}	
 		return result;
 	}
 
@@ -157,7 +151,7 @@ public class thredStart implements Runnable {
 	}
 
 	private void htmlHat() {
-		html.addDiv("Таблица цветов ячеек");
+		html.addDiv("<b>Таблица цветов ячеек</b>");
 		html.newTable("border=\"1\" width=\"100%\" bordercolor=\"black\"");
 
 		html.newRow();
